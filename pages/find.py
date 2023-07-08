@@ -4,12 +4,14 @@ from dash import dcc
 from dash import html
 from dash.dependencies import Input, Output
 from backend.send_emails import send_email_to_emails
+from app import user_data
+import pandas as pd
 
 dash.register_page(__name__)
 
 vehicle_radioitems = html.Div(
     [
-        dbc.Label("How do you go to work?", html_for="vehicle"),
+        dbc.Label("What kind of transportation do you use?", html_for="vehicle"),
         dbc.RadioItems(
             options=[
                 {"label": "Car", "value": "car"},
@@ -25,12 +27,16 @@ vehicle_radioitems = html.Div(
 
 time_dropdown = html.Div(
     [
-        dbc.Label("What time do you plan to go to work?", html_for="time"),
+        dbc.Label("What time do you plan to travel?", html_for="time"),
         dcc.Dropdown(
             options=[
                 {"label": "07:00–08:00", "value": 1},
                 {"label": "08:00–09:00", "value": 2},
                 {"label": "09:00–10:00", "value": 3},
+                {"label": "10:00–11:00", "value": 3},
+                {"label": "16:00–17:00", "value": 3},
+                {"label": "17:00–18:00", "value": 3},
+                {"label": "18:00–19:00", "value": 3}
             ],
             id="time",
         ),
@@ -122,15 +128,15 @@ interests_badges = html.Div(
     className="my-4 form-control",
 )
 
+placement_users = pd.read_json(user_data, orient="split")[["FirstName", "LastName"]]
+cols = ["FirstName", "LastName"]
+placement_users['First_LastName'] = placement_users[cols].apply(lambda row: ' '.join(row.values.astype(str)), axis=1)
+
+
 location_select = html.Div(
     [
         dbc.Label("Your colleagues who live nearby:", html_for="location"),
-        dcc.Dropdown(
-            options=[
-                {"label": "Bob", "value": 1},
-                {"label": "Ann", "value": 2},
-                {"label": "John", "value": 3},
-            ],
+        dcc.Dropdown(placement_users['First_LastName'].tolist(),
             multi=True,
             id="location",
         ),

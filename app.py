@@ -10,6 +10,11 @@ import pandas as pd
 user_data = pd.read_csv("assets/sample_users.txt", delimiter=",")
 user_data['Cluster'] = user_data['Cluster'].astype('int64')
 user_data = user_data.to_json(orient="split")
+score_data = pd.read_csv("assets/sample_scores.csv", delimiter=",")
+score_data['Cluster'] = score_data['Cluster'].astype('int64')
+score_data = score_data.to_json(orient="split")
+
+
 
 app = dash.Dash(__name__, use_pages=True)
 

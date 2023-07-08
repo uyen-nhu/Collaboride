@@ -3,7 +3,8 @@ import dash_bootstrap_components as dbc
 from dash import dcc
 from dash import html
 from app import user_data
-
+from app import score_data
+import pandas as pd
 
 dash.register_page(__name__, path='/')
 
@@ -12,6 +13,7 @@ map_cluster = html.Div(
         [
             html.Div([
                 dcc.Store(id='user_data', data=user_data),
+                dcc.Store(id='score_data', data=score_data),
 
                 dcc.Graph(id='map_clusters', config={'displayModeBar': False})
             ])
@@ -22,6 +24,20 @@ map_cluster = html.Div(
     id="map",
     className="my-4 p-5 bg-secondary rounded-3 text-center"
 )
+placement_users = pd.read_json(user_data, orient="split")[["FirstName", "LastName", "Cluster"]]
+score_data = pd.read_json(score_data, orient="split")
+
+cols = ["FirstName", "LastName"]
+placement_users['First_LastName'] = placement_users[cols].apply(lambda row: ' '.join(row.values.astype(str)), axis=1)
+placement_users.First_LastName = placement_users.First_LastName + ", "
+placement_users_grouped_by_cluster = placement_users.groupby('Cluster')['First_LastName'].apply(list).reset_index(name='Team members')
+
+placement_users_grouped_by_cluster_scores = pd.merge(placement_users_grouped_by_cluster, score_data, on=["Cluster"])
+placement_users_grouped_by_cluster_scores['Cluster'] = placement_users_grouped_by_cluster_scores['Cluster'].map({1:'Team B', 2:'Team A', 3:'Team C'})
+placement_users_grouped_by_cluster_scores = placement_users_grouped_by_cluster_scores.rename(columns={'Cluster': 'Team name'})
+placement_users_grouped_by_cluster_scores['Rank'] = placement_users_grouped_by_cluster_scores['Score'].rank()
+
+placement_users_grouped_by_cluster_scores = placement_users_grouped_by_cluster_scores[['Rank', 'Team name', "Score"]]
 
 table_header = [
     html.Thead(html.Tr([html.Th("#"), html.Th("Name")]))
@@ -36,10 +52,7 @@ table_body = [html.Tbody([row1, row2, row3])]
 leaderboard_table = html.Div(
     [
         dbc.Label("Leaderboard:", html_for="leaderboard"),
-        dbc.Table(
-            table_header + table_body, bordered=True,
-            id="leaderboard"
-        )
+        dbc.Table.from_dataframe(placement_users_grouped_by_cluster_scores, bordered=True,id="leaderboard")
     ],
     className="my-4"
 )
