@@ -3,6 +3,7 @@ import dash_bootstrap_components as dbc
 from dash import dcc
 from dash import html
 from dash.dependencies import Input, Output
+from backend.qr_code import make_qr_code_stylish
 
 dash.register_page(__name__)
 
@@ -14,10 +15,12 @@ add_ride = html.Div(
     className="text-center"
 )
 
+# make_qr_code_stylish() # uncomment this line if you want to create a new qr
+
 qr_code = html.Div(
     dbc.Container(
         [
-            html.H1("[QR CODE]")
+            html.Img(src='assets/qr_code.png', alt='QR Code')
         ],
         fluid=True,
         className="py-3",
