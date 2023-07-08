@@ -1,0 +1,36 @@
+.navbar {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+}
+
+.btn-primary {
+    border: #004388 !important;
+    border-radius: 0 !important;
+    background-color: #004388 !important;
+    transition: all .2s;
+}
+.btn-primary:hover {
+    border: #00a6e2 !important;
+    background-color: #00a6e2 !important;
+}
+
+.badge {
+    margin: .25rem !important;
+    padding: .5rem 1rem !important;
+    color: #004388 !important;
+    border: 1px solid #004388 !important;
+    border-radius: 10rem !important;
+    background-color: #fff !important;
+    transition: all .2s;
+}
+.badge:hover {
+    color: #fff !important;
+    background-color: #004388 !important;
+}
+
+.Select-value {
+    background-color: #004388 !important;
+    border: #004388 !important;
+    color: #fff !important;
+}
