@@ -3,6 +3,7 @@ import dash_bootstrap_components as dbc
 from dash import dcc
 from dash import html
 from dash.dependencies import Input, Output
+from backend.send_emails import send_email_to_emails
 
 dash.register_page(__name__)
 
@@ -137,4 +138,12 @@ location_select = html.Div(
     className="my-4 form-control",
 )
 
-layout = dbc.Container([vehicle_radioitems, time_dropdown, interests_badges, location_select], fluid=False)
+send_invite = html.Div(
+    [
+        dbc.Button("Invite", size="lg", className="me-1 my-4 btn-primary"),
+    ],
+    id="send-invite",
+    className="text-center"
+)
+
+layout = dbc.Container([vehicle_radioitems, time_dropdown, interests_badges, location_select, send_invite], fluid=False)
