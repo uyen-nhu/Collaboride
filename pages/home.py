@@ -2,14 +2,19 @@ import dash
 import dash_bootstrap_components as dbc
 from dash import dcc
 from dash import html
-from dash.dependencies import Input, Output
+from app import user_data
+
 
 dash.register_page(__name__, path='/')
 
 map_cluster = html.Div(
     dbc.Container(
         [
-            html.H1("[MAP]")
+            html.Div([
+                dcc.Store(id='user_data', data=user_data),
+
+                dcc.Graph(id='map_clusters', config={'displayModeBar': False})
+            ])
         ],
         fluid=True,
         className="py-3",
@@ -40,3 +45,4 @@ leaderboard_table = html.Div(
 )
 
 layout = dbc.Container([map_cluster, leaderboard_table], fluid=False)
+
