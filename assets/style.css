@@ -1,7 +1,37 @@
-.navbar {
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.container {
+    margin: 5rem 0 !important;
+    padding: 0 !important;
+}
+
+.header {
     width: 100%;
+    height: 5rem;
+    background-color: #1a468e;
+    color: #fff;
     position: fixed;
-    bottom: 0;
+    top: 0;
+    z-index: 99;
+}
+
+.navbar {
+    width: 100% !important;
+    height: 5rem !important;
+    background-color: #1a468e !important;
+    position: fixed !important;
+    bottom: 0 !important;
+    z-index: 99 !important;
+}
+
+.nav-link {
+    font-weight: bold;
+    color: #667f99 !important;
+}
+.nav-link:hover {
+    color: #fff !important;
 }
 
 .btn-primary {

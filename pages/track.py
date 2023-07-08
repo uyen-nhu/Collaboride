@@ -2,10 +2,17 @@ import dash
 import dash_bootstrap_components as dbc
 from dash import dcc
 from dash import html
-from dash.dependencies import Input, Output
-from backend.qr_code import make_qr_code_stylish
+# from dash.dependencies import Input, Output
+# from backend.qr_code import make_qr_code_stylish
 
 dash.register_page(__name__)
+
+header = html.Header(
+    children=[
+        html.H1('Track a Ride')
+    ],
+    className="header text-center"
+)
 
 add_ride = html.Div(
     [
@@ -28,4 +35,4 @@ qr_code = html.Div(
     className="my-4 p-5 bg-secondary rounded-3 text-center"
 )
 
-layout = dbc.Container([add_ride, qr_code], fluid=False)
+layout = dbc.Container([header, add_ride, qr_code], fluid=False)

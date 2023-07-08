@@ -2,12 +2,19 @@ import dash
 import dash_bootstrap_components as dbc
 from dash import dcc
 from dash import html
-from dash.dependencies import Input, Output
-from backend.send_emails import send_email_to_emails
+# from dash.dependencies import Input, Output
+# from backend.send_emails import send_email_to_emails
 from app import user_data
 import pandas as pd
 
 dash.register_page(__name__)
+
+header = html.Header(
+    children=[
+        html.H1('Find a Rider')
+    ],
+    className="header text-center"
+)
 
 vehicle_radioitems = html.Div(
     [
@@ -132,13 +139,12 @@ placement_users = pd.read_json(user_data, orient="split")[["FirstName", "LastNam
 cols = ["FirstName", "LastName"]
 placement_users['First_LastName'] = placement_users[cols].apply(lambda row: ' '.join(row.values.astype(str)), axis=1)
 
-
 location_select = html.Div(
     [
         dbc.Label("Your colleagues who live nearby:", html_for="location"),
         dcc.Dropdown(placement_users['First_LastName'].tolist(),
-            multi=True,
-            id="location",
+        multi=True,
+        id="location",
         ),
     ],
     className="my-4 form-control",
@@ -152,4 +158,4 @@ send_invite = html.Div(
     className="text-center"
 )
 
-layout = dbc.Container([vehicle_radioitems, time_dropdown, interests_badges, location_select, send_invite], fluid=False)
+layout = dbc.Container([header, vehicle_radioitems, time_dropdown, interests_badges, location_select, send_invite], fluid=False)

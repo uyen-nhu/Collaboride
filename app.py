@@ -14,14 +14,7 @@ score_data = pd.read_csv("assets/sample_scores.csv", delimiter=",")
 score_data['Cluster'] = score_data['Cluster'].astype('int64')
 score_data = score_data.to_json(orient="split")
 
-
-
 app = dash.Dash(__name__, use_pages=True)
-
-header = dbc.Container(
-    html.Img(src=app.get_asset_url("img/Freudenberg_Logo.png"), height="30px"),
-    className="text-center"
-)
 
 navbar = dbc.NavbarSimple(
     children=[
@@ -29,17 +22,14 @@ navbar = dbc.NavbarSimple(
             page['name'], href=page["relative_path"]
         ))
         for page in dash.page_registry.values()
-        # dbc.NavItem(dbc.NavLink("Home", href="#")),
-        # dbc.NavItem(dbc.NavLink("Find a Rider", href="#")),
-        # dbc.NavItem(dbc.NavLink("Track", href="#")),
     ],
-    brand=html.Img(src=app.get_asset_url("img/Freudenberg_Logo.png"), height="30px"),
-    brand_href="#",
-    color="light",
-    dark=False,
+    # brand=html.Img(src=app.get_asset_url("img/Freudenberg_Logo.png"), height="30px"),
+    # brand_href="#",
+    # color="light",
+    # dark=False,
 )
 
-app.layout = dbc.Container([header, navbar, dash.page_container])
+app.layout = dbc.Container([navbar, dash.page_container])
 
 ############ callback functions for home page ############
 

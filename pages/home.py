@@ -6,7 +6,15 @@ from app import user_data
 from app import score_data
 import pandas as pd
 
+
 dash.register_page(__name__, path='/')
+
+header = html.Header(
+    children=[
+        html.H1('Home')
+    ],
+    className="header text-center"
+)
 
 map_cluster = html.Div(
     dbc.Container(
@@ -22,8 +30,9 @@ map_cluster = html.Div(
         className="py-3",
     ),
     id="map",
-    className="my-4 p-5 bg-secondary rounded-3 text-center"
+    className="my-4 rounded-3 text-center"
 )
+
 placement_users = pd.read_json(user_data, orient="split")[["FirstName", "LastName", "Cluster"]]
 score_data = pd.read_json(score_data, orient="split")
 
@@ -57,5 +66,5 @@ leaderboard_table = html.Div(
     className="my-4"
 )
 
-layout = dbc.Container([map_cluster, leaderboard_table], fluid=False)
+layout = dbc.Container([header, map_cluster, leaderboard_table], fluid=False)
 
