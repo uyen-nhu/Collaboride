@@ -1,7 +1,7 @@
 import dash
-import dash_core_components as dcc
-import dash_html_components as html
 import dash_bootstrap_components as dbc
+from dash import dcc
+from dash import html
 from dash.dependencies import Input, Output
 
 app = dash.Dash(__name__, use_pages=True)
@@ -30,4 +30,4 @@ navbar = dbc.NavbarSimple(
 app.layout = dbc.Container([header, navbar, dash.page_container])
 
 if __name__ == '__main__':
-    app.run_server()
+    app.run_server(debug=True)
