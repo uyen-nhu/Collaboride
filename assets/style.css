@@ -99,6 +99,11 @@ h2 {
     color: #fff !important;
 }
 
+#time .Select-value {
+    background-color: #fff !important;
+    color: #000 !important;
+}
+
 .vehicle-container {
     margin-top: 7rem !important;
 }
@@ -116,5 +121,5 @@ h2 {
 }
 .qr-code {
     height: 12rem;
-    display: none;
+    /* display: none; */
 }
