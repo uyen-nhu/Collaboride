@@ -42,9 +42,14 @@ placement_users.First_LastName = placement_users.First_LastName + ", "
 placement_users_grouped_by_cluster = placement_users.groupby('Cluster')['First_LastName'].apply(list).reset_index(name='Team members')
 
 placement_users_grouped_by_cluster_scores = pd.merge(placement_users_grouped_by_cluster, score_data, on=["Cluster"])
-placement_users_grouped_by_cluster_scores['Cluster'] = placement_users_grouped_by_cluster_scores['Cluster'].map({1:'Team B', 2:'Team A', 3:'Team C'})
+placement_users_grouped_by_cluster_scores['Cluster'] = placement_users_grouped_by_cluster_scores['Cluster'].map({1:'Team 2', 2:'Team 1', 3:'Team 3'})
 placement_users_grouped_by_cluster_scores = placement_users_grouped_by_cluster_scores.rename(columns={'Cluster': 'Team name'})
-placement_users_grouped_by_cluster_scores['Rank'] = placement_users_grouped_by_cluster_scores['Score'].rank()
+
+rank = ["1.", "2.", "3."]
+points = [350, 300, 140]
+placement_users_grouped_by_cluster_scores['Rank'] = rank
+placement_users_grouped_by_cluster_scores['Score'] = points
+
 
 placement_users_grouped_by_cluster_scores = placement_users_grouped_by_cluster_scores[['Rank', 'Team name', "Score"]]
 

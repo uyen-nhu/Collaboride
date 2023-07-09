@@ -16,10 +16,9 @@ header = html.Div(
 
 add_ride = html.Div(
     [
-        dbc.Button("Add Ride", size="lg", className="add-ride me-1 my-4 btn-primary"),
-    ],
-    id="add-ride",
-    className="text-center"
+        html.Button('Track ride', id='track_ride_btn', className="add-ride me-1 my-4 btn-primary"),
+]
+
 )
 
 # make_qr_code_stylish() # uncomment this line if you want to create a new qr
@@ -27,7 +26,7 @@ add_ride = html.Div(
 qr_code = html.Div(
     dbc.Container(
         [
-            html.Img(src='assets/qr_code.png', alt='QR Code', className="qr-code")
+            html.Div(id='qr_code_div')
         ],
         fluid=True,
         className="py-3",

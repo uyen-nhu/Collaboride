@@ -7,6 +7,8 @@ from dash.dependencies import Input, Output
 import plotly.graph_objects as go
 import pandas as pd
 
+from backend.qr_code import make_qr_code_stylish
+
 user_data = pd.read_csv("assets/sample_users.txt", delimiter=",")
 user_data['Cluster'] = user_data['Cluster'].astype('int64')
 user_data = user_data.to_json(orient="split")
@@ -97,6 +99,19 @@ def update_output_div(df2):
     fig.update_layout(showlegend=False)
 
     return fig
+
+@app.callback(
+    Output('qr_code_div', 'children'),
+    Input('track_ride_btn', 'n_clicks')
+)
+def update_qr_code(n_clicks):
+    if n_clicks is None:
+        return html.Div()
+    else:
+       # qr_code = make_qr_code_simple()
+       # qr_code = make_qr_code_stylish()
+        return html.Img(src=app.get_asset_url('qr_code.png'), alt='QR Code')
+
 
 
 
