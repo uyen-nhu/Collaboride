@@ -9,7 +9,8 @@ dash.register_page(__name__)
 
 header = html.Div(
     [
-        html.H1('Track a Ride')
+        html.H1('Track a Ride'),
+        html.Img(src="assets/img/Freudenberg_Logo_Grey.png", height="30px")
     ],
     className="header text-center"
 )

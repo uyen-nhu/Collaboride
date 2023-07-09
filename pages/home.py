@@ -11,7 +11,8 @@ dash.register_page(__name__, path='/')
 
 header = html.Div(
     [
-        html.H1('Home')
+        html.H1('Home'),
+        html.Img(src="assets/img/Freudenberg_Logo_Grey.png", height="30px")
     ],
     className="header text-center"
 )
@@ -71,6 +72,7 @@ layout = html.Div(
     [
         header,
         dbc.Container([map_cluster, leaderboard_table], fluid=False)
-    ]
+    ],
+    className="layout-div"
 )
 

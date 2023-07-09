@@ -2,7 +2,11 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-div {
+/* div {
+    margin: 0 auto;
+} */
+
+.layout-div {
     margin: 0 auto;
 }
 
@@ -19,7 +23,11 @@ div {
     color: #fff;
     font-size: 1.25rem;
     font-weight: bold;
-    transform: translateX(-4.75rem);
+    transform: translate(-4.75rem, -.8rem);
+}
+.header img {
+    height: 1.25rem;
+    transform: translate(-4.75rem, -1rem);
 }
 
 h2 {
@@ -42,6 +50,7 @@ h2 {
 
 .nav-item {
     padding: 0 2rem !important;
+    transform: translateX(-25rem);
 }
 
 .nav-link {
