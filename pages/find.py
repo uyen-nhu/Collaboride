@@ -11,7 +11,8 @@ dash.register_page(__name__)
 
 header = html.Div(
     [
-        html.H1('Find a Rider')
+        html.H1('Find a Rider'),
+        html.Img(src="assets/img/Freudenberg_Logo_Grey.png", height="30px")
     ],
     className="header text-center"
 )
