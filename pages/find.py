@@ -9,8 +9,8 @@ import pandas as pd
 
 dash.register_page(__name__)
 
-header = html.Header(
-    children=[
+header = html.Div(
+    [
         html.H1('Find a Rider')
     ],
     className="header text-center"
@@ -18,32 +18,34 @@ header = html.Header(
 
 vehicle_radioitems = html.Div(
     [
-        dbc.Label("What kind of transportation do you use?", html_for="vehicle"),
+        html.H2('Travelling Mode'),
+        dbc.Label("What kind of transportation do you prefer?", html_for="vehicle"),
         dbc.RadioItems(
             options=[
-                {"label": "Car", "value": "car"},
-                {"label": "Bus", "value": "bus"},
-                {"label": "Bike", "value": "bike"},
+                {"label": "Car Sharing", "value": "car"},
+                {"label": "Bike Ride", "value": "bike"},
+                {"label": "Public Transportation", "value": "public"},
             ],
             value=1,
             id="vehicle",
         ),
     ],
-    className="my-4 form-control",
+    className="vehicle-container my-4 form-control",
 )
 
 time_dropdown = html.Div(
     [
+        html.H2('Departure Mode'),
         dbc.Label("What time do you plan to travel?", html_for="time"),
         dcc.Dropdown(
             options=[
                 {"label": "07:00–08:00", "value": 1},
                 {"label": "08:00–09:00", "value": 2},
                 {"label": "09:00–10:00", "value": 3},
-                {"label": "10:00–11:00", "value": 3},
-                {"label": "16:00–17:00", "value": 3},
-                {"label": "17:00–18:00", "value": 3},
-                {"label": "18:00–19:00", "value": 3}
+                {"label": "10:00–11:00", "value": 4},
+                {"label": "16:00–17:00", "value": 5},
+                {"label": "17:00–18:00", "value": 6},
+                {"label": "18:00–19:00", "value": 7}
             ],
             id="time",
         ),
@@ -53,7 +55,8 @@ time_dropdown = html.Div(
 
 interests_badges = html.Div(
     [
-        dbc.Label("What are your interests?", html_for="interests"),
+        html.H2('Personal Interests'),
+        dbc.Label("Feel free to select multiple options.", html_for="interests"),
         html.Div(
             [
                 dbc.Badge(
@@ -141,21 +144,27 @@ placement_users['First_LastName'] = placement_users[cols].apply(lambda row: ' '.
 
 location_select = html.Div(
     [
+        html.H2('Your Ride'),
         dbc.Label("Your colleagues who live nearby:", html_for="location"),
         dcc.Dropdown(placement_users['First_LastName'].tolist(),
         multi=True,
         id="location",
         ),
     ],
-    className="my-4 form-control",
+    className="location-container my-4 form-control",
 )
 
 send_invite = html.Div(
     [
-        dbc.Button("Invite", size="lg", className="me-1 my-4 btn-primary"),
+        dbc.Button("Invite", size="lg", className="me-1 btn-primary mb-4"),
     ],
     id="send-invite",
     className="text-center"
 )
 
-layout = dbc.Container([header, vehicle_radioitems, time_dropdown, interests_badges, location_select, send_invite], fluid=False)
+layout = html.Div(
+    [
+        header,
+        dbc.Container([vehicle_radioitems, time_dropdown, interests_badges, location_select, send_invite], fluid=False)
+    ]
+)

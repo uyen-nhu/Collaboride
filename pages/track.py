@@ -7,8 +7,8 @@ from dash import html
 
 dash.register_page(__name__)
 
-header = html.Header(
-    children=[
+header = html.Div(
+    [
         html.H1('Track a Ride')
     ],
     className="header text-center"
@@ -16,7 +16,7 @@ header = html.Header(
 
 add_ride = html.Div(
     [
-        dbc.Button("Add Ride", size="lg", className="me-1 my-4 btn-primary"),
+        dbc.Button("Add Ride", size="lg", className="add-ride me-1 my-4 btn-primary"),
     ],
     id="add-ride",
     className="text-center"
@@ -27,12 +27,17 @@ add_ride = html.Div(
 qr_code = html.Div(
     dbc.Container(
         [
-            html.Img(src='assets/qr_code.png', alt='QR Code')
+            html.Img(src='assets/qr_code.png', alt='QR Code', className="qr-code")
         ],
         fluid=True,
         className="py-3",
     ),
-    className="my-4 p-5 bg-secondary rounded-3 text-center"
+    className="qr-container my-4 p-4 rounded-3 text-center"
 )
 
-layout = dbc.Container([header, add_ride, qr_code], fluid=False)
+layout = html.Div(
+    [
+        header,
+        dbc.Container([add_ride, qr_code], fluid=False)
+    ]
+)

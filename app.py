@@ -16,6 +16,10 @@ score_data = score_data.to_json(orient="split")
 
 app = dash.Dash(__name__, use_pages=True)
 
+header = html.Header(
+    className="header text-center"
+)
+
 navbar = dbc.NavbarSimple(
     children=[
         dbc.NavItem(dbc.NavLink(
@@ -29,7 +33,13 @@ navbar = dbc.NavbarSimple(
     # dark=False,
 )
 
-app.layout = dbc.Container([navbar, dash.page_container])
+app.layout = html.Div(
+    [
+        header,
+        navbar,
+        dbc.Container([dash.page_container], className="content")
+    ]
+)
 
 ############ callback functions for home page ############
 

@@ -9,8 +9,8 @@ import pandas as pd
 
 dash.register_page(__name__, path='/')
 
-header = html.Header(
-    children=[
+header = html.Div(
+    [
         html.H1('Home')
     ],
     className="header text-center"
@@ -27,7 +27,7 @@ map_cluster = html.Div(
             ])
         ],
         fluid=True,
-        className="py-3",
+        className="map-container py-3",
     ),
     id="map",
     className="my-4 rounded-3 text-center"
@@ -63,8 +63,14 @@ leaderboard_table = html.Div(
         dbc.Label("Leaderboard:", html_for="leaderboard"),
         dbc.Table.from_dataframe(placement_users_grouped_by_cluster_scores, bordered=True,id="leaderboard")
     ],
+    id="leaderboard",
     className="my-4"
 )
 
-layout = dbc.Container([header, map_cluster, leaderboard_table], fluid=False)
+layout = html.Div(
+    [
+        header,
+        dbc.Container([map_cluster, leaderboard_table], fluid=False)
+    ]
+)
 
